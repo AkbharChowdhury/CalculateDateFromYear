@@ -107,7 +107,7 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
                 displayDates(date, stopYear - 1, dow);
 
             } catch (DateTimeException ex) {
-                System.err.println(ex.getMessage());
+                Helper.showErrorMessage(ex.getMessage(), "Date Error");
 
             }
 
