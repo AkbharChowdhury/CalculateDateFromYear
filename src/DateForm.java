@@ -1,4 +1,4 @@
-
+import utils.Helper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,12 +12,12 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.time.format.TextStyle;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
-import static java.lang.StringTemplate.STR;
-
+import static utils.Helper.validateMaxField;
 
 public final class DateForm extends JFrame implements ActionListener, KeyListener {
     JButton button = new JButton("Show Dates");
@@ -28,25 +28,9 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
     JTextField txtDays = new JTextField(2);
     JTextField txtStopYear = new JTextField(3);
 
-    JComboBox<String> cbDays = new JComboBox<>(getDays().toArray(new String[0]));
-    JComboBox<String> cbMonths = new JComboBox<>(getMonths().toArray(new String[0]));
+    JComboBox<String> cbDays = new JComboBox<>(Helper.getDays().toArray(new String[0]));
+    JComboBox<String> cbMonths = new JComboBox<>(Helper.getMonths().toArray(new String[0]));
 
-    private static TextStyle getTextStyle() {
-        return TextStyle.FULL;
-
-    }
-
-    public static List<String> getMonths() {
-        return Arrays.stream(Month.values())
-                .map(dow -> dow.getDisplayName(getTextStyle(), Locale.UK))
-                .toList();
-    }
-
-    public static List<String> getDays() {
-        return Arrays.stream(DayOfWeek.values())
-                .map(dow -> dow.getDisplayName(getTextStyle(), Locale.UK))
-                .toList();
-    }
 
     public DateForm() {
         list.setPreferredSize(new Dimension(600, 600));
@@ -56,7 +40,7 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
         setResizable(false);
         setLayout(new BorderLayout());
         setSize(500, 300);
-        setTitle("Dates application");
+        setTitle("Dates Application");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -138,7 +122,6 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
         while (date.getYear() != stopYear) {
             if (date.getDayOfWeek() == dow) {
                 dates.add(date);
-                System.out.println(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).format(date));
             }
             date = date.minusYears(1);
         }
@@ -165,11 +148,6 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
 
     }
 
-    private void validateMaxField(JTextField field, int maxLength, KeyEvent e) {
-        if (field.getText().length() > maxLength) e.consume();
-
-
-    }
 
     private void validateNumber(JTextField field, KeyEvent e) {
         //  link https://www.youtube.com/watch?v=cdPKsws5f-4

@@ -1,7 +1,14 @@
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
+package utils;
 
+import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.time.DayOfWeek;
+import java.time.Month;
+import java.time.format.TextStyle;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 public final class Helper {
     private Helper() {
 
@@ -24,6 +31,27 @@ public final class Helper {
         }
         if (day.equals("0")) errors.add("Day cannot be 0. Please enter a day");
         return errors;
+
+    }
+
+    public static List<String> getMonths() {
+        return Arrays.stream(Month.values())
+                .map(dow -> dow.getDisplayName(getTextStyle(), Locale.UK))
+                .toList();
+    }
+    private static TextStyle getTextStyle() {
+        return TextStyle.FULL;
+
+    }
+
+    public static List<String> getDays() {
+        return Arrays.stream(DayOfWeek.values())
+                .map(dow -> dow.getDisplayName(getTextStyle(), Locale.UK))
+                .toList();
+    }
+    public static void validateMaxField(JTextField field, int maxLength, KeyEvent e) {
+        if (field.getText().length() > maxLength) e.consume();
+
 
     }
 }
