@@ -18,6 +18,11 @@ public final class Helper {
         JOptionPane.showMessageDialog(null, message,
                 title, JOptionPane.ERROR_MESSAGE);
     }
+    public static void validateNumber(JTextField field, KeyEvent e) {
+        //  link https://www.youtube.com/watch?v=cdPKsws5f-4
+        field.setEditable(!Character.isLetter(e.getKeyChar()));
+
+    }
 
     public static List<String> errors(JTextField txtDays, JTextField txtStopYear) {
         List<String> errors = new ArrayList<>();

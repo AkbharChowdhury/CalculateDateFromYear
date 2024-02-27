@@ -18,6 +18,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 import static utils.Helper.validateMaxField;
+import static utils.Helper.validateNumber;
 
 public final class DateForm extends JFrame implements ActionListener, KeyListener {
     JButton button = new JButton("Show Dates");
@@ -25,8 +26,8 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
 
     private final JList<String> list = new JList<>(model);
 
-    JTextField txtDays = new JTextField(2);
-    JTextField txtStopYear = new JTextField(3);
+    private final JTextField txtDays = new JTextField(2);
+    private final JTextField txtStopYear = new JTextField(3);
 
     JComboBox<String> cbDays = new JComboBox<>(Helper.getDays().toArray(new String[0]));
     JComboBox<String> cbMonths = new JComboBox<>(Helper.getMonths().toArray(new String[0]));
@@ -34,7 +35,6 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
 
     public DateForm() {
         list.setPreferredSize(new Dimension(600, 600));
-
         list.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
 
         setResizable(false);
@@ -54,12 +54,9 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
         top.add(cbMonths);
         top.add(new JLabel("Stop Year"));
         top.add(txtStopYear);
-        txtDays.addKeyListener(this);
-        txtStopYear.addKeyListener(this);
 
-
-        south.add(button);
         middle.add(new JScrollPane(list));
+        south.add(button);
 
         add(BorderLayout.NORTH, top);
         add(BorderLayout.CENTER, middle);
@@ -67,6 +64,8 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
 
 
         button.addActionListener(this);
+        txtDays.addKeyListener(this);
+        txtStopYear.addKeyListener(this);
 
 
         setVisible(true);
@@ -125,10 +124,6 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
             }
             date = date.minusYears(1);
         }
-        if (dates.isEmpty()) {
-            Helper.showErrorMessage("There are no dates found", "Dates error");
-            return;
-        }
         clearList();
         dates.forEach(d -> model.addElement(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).format(d)));
 
@@ -148,12 +143,6 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
 
     }
 
-
-    private void validateNumber(JTextField field, KeyEvent e) {
-        //  link https://www.youtube.com/watch?v=cdPKsws5f-4
-        field.setEditable(!Character.isLetter(e.getKeyChar()));
-
-    }
 
     @Override
     public void keyPressed(KeyEvent e) {
