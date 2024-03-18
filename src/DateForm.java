@@ -86,13 +86,12 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
                 errors.forEach(error -> sb.append(error).append(System.lineSeparator()));
                 Helper.showErrorMessage(sb.toString(), "form error");
                 return;
-
             }
 
-            int currentYear = LocalDate.now().getYear();
+            int maxStopYear = LocalDate.now().getYear();
             int stopYear = Integer.parseInt(txtStopYear.getText().toString());
-            if (stopYear > currentYear) {
-                Helper.showErrorMessage(STR."The stop year must be less less than or equal to \{currentYear}", "Stop year error");
+            if (stopYear > maxStopYear) {
+                Helper.showErrorMessage(STR."The stop year must be less less than or equal to \{maxStopYear}", "Stop year error");
                 txtStopYear.grabFocus();
                 return;
             }
@@ -102,7 +101,7 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
                 Month month = Month.valueOf(Objects.requireNonNull(cbMonths.getSelectedItem()).toString().toUpperCase(Locale.ENGLISH));
                 DayOfWeek dow = DayOfWeek.valueOf(Objects.requireNonNull(cbDays.getSelectedItem()).toString().toUpperCase(Locale.ENGLISH));
                 int day = Integer.parseInt(txtDays.getText().toString());
-                var date = LocalDate.of(LocalDate.now().getYear(), month, day);
+                var date = LocalDate.of(maxStopYear, month, day);
                 displayDates(date, stopYear - 1, dow);
 
             } catch (DateTimeException ex) {
