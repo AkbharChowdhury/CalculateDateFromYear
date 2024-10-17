@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
+
 public final class Helper {
     private Helper() {
 
@@ -42,6 +44,28 @@ public final class Helper {
 
     }
 
+
+
+    public static List<String> errors2(JTextField txtDays, JTextField txtStartYear, JTextField txtStopYear) {
+        List<String> errors = new ArrayList<>();
+        String day = txtDays.getText().toString().trim();
+        String stopYear = txtStopYear.getText().toString().trim();
+        String startYear = txtStartYear.getText().toString().trim();
+
+        if (day.isEmpty()) errors.add("Day field is empty");
+        if (startYear.isEmpty()) errors.add("Start Year field is empty");
+        if (stopYear.isEmpty()) errors.add("Stop Year field is empty");
+        if (stopYear.length() < 4) {
+            errors.add("Stop Year must be 4 digits");
+        }
+        if (startYear.length() < 4) {
+            errors.add("Start Year must be 4 digits");
+        }
+        if (day.equals("0")) errors.add("Day cannot be 0. Please enter a day");
+        return errors;
+
+    }
+
     public static List<String> getMonths() {
         return Arrays.stream(Month.values())
                 .map(dow -> dow.getDisplayName(getTextStyle(), Locale.UK))
@@ -65,5 +89,19 @@ public final class Helper {
 
     public static String formatDate(FormatStyle formatStyle, LocalDate date){
        return DateTimeFormatter.ofLocalizedDate(formatStyle).format(date);
+    }
+
+
+    public static List<LocalDate> getDatesBetweenStartAndEnd(
+            LocalDate startDate,
+            LocalDate endDate,
+            DayOfWeek dow
+    ) {
+
+        return startDate.datesUntil(endDate)
+                .filter(date -> date.getDayOfWeek() == dow
+                        && date.getMonth() == startDate.getMonth()
+                        && date.getDayOfMonth() == startDate.getDayOfMonth())
+                .collect(Collectors.toList());
     }
 }

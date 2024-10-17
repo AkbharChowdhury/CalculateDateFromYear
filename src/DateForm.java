@@ -33,8 +33,6 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
     JComboBox<String> cbMonths = new JComboBox<>(Helper.getMonths().toArray(new String[0]));
 
 
-
-
     public DateForm() {
         list.setPreferredSize(new Dimension(600, 600));
         list.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
@@ -102,7 +100,7 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
             try {
                 Month month = Month.valueOf(Objects.requireNonNull(cbMonths.getSelectedItem()).toString().toUpperCase(Locale.ENGLISH));
                 DayOfWeek dow = DayOfWeek.valueOf(Objects.requireNonNull(cbDays.getSelectedItem()).toString().toUpperCase(Locale.ENGLISH));
-                int day = Integer.parseInt(txtDays.getText().toString());
+                int day = Integer.parseInt(txtDays.getText());
                 var date = LocalDate.of(maxStopYear, month, day);
                 displayDates(date, stopYear - 1, dow);
 
@@ -126,7 +124,7 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
             date = date.minusYears(1);
         }
         clearList();
-        dates.forEach(d -> model.addElement(Helper.formatDate(FormatStyle.FULL, d)));
+        dates.forEach(d -> model.addElement(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).format(d)));
 
     }
 
