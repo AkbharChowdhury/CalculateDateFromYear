@@ -29,12 +29,6 @@ public final class Helper {
 
     }
 
-
-
-
-
-
-
     public static List<String> getMonths() {
         return Arrays.stream(Month.values())
                 .map(dow -> dow.getDisplayName(getTextStyle(), Locale.UK))

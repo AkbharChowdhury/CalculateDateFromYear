@@ -15,7 +15,7 @@ public class Validation {
         this.txtStopYear = txtStopYear;
     }
 
-    private   List<String> errors() {
+    private List<String> errors() {
         List<String> errors = new ArrayList<>();
         String day = txtDays.getText().toString().trim();
         String stopYear = txtStopYear.getText().toString().trim();

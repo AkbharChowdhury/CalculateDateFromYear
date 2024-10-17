@@ -86,8 +86,8 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
         if (e.getSource() == btnShowDates) {
 
             Validation form = new Validation(txtDays, txtStartYear, txtStopYear);
-            if (!form.isFormValid()) return;
 
+            if (!form.isFormValid()) return;
             int day = Integer.parseInt(txtDays.getText());
             DayOfWeek dayOfWeek = DayOfWeek.valueOf((cbDays.getSelectedItem()).toString().toUpperCase());
             Month month = Month.valueOf(cbMonths.getSelectedItem().toString().toUpperCase());
@@ -105,8 +105,6 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
             List<LocalDate> dates = getDatesBetweenStartAndEnd(startDate, endDate, dayOfWeek);
             clearList();
             dates.forEach(date -> model.addElement(Helper.formatDate(FormatStyle.FULL, date)));
-
-
         }
 
 
@@ -141,9 +139,6 @@ public final class DateForm extends JFrame implements ActionListener, KeyListene
 
 
     }
-
-
-
 
 }
 
