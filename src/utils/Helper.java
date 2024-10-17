@@ -29,42 +29,11 @@ public final class Helper {
 
     }
 
-    public static List<String> errors(JTextField txtDays, JTextField txtStopYear) {
-        List<String> errors = new ArrayList<>();
-        String day = txtDays.getText().toString().trim();
-        String stopYear = txtStopYear.getText().toString().trim();
-
-        if (day.isEmpty()) errors.add("Day field is empty");
-        if (stopYear.isEmpty()) errors.add("Stop Year field is empty");
-        if (stopYear.length() < 4) {
-            errors.add("Year must be 4 digits");
-        }
-        if (day.equals("0")) errors.add("Day cannot be 0. Please enter a day");
-        return errors;
-
-    }
 
 
 
-    public static List<String> errors2(JTextField txtDays, JTextField txtStartYear, JTextField txtStopYear) {
-        List<String> errors = new ArrayList<>();
-        String day = txtDays.getText().toString().trim();
-        String stopYear = txtStopYear.getText().toString().trim();
-        String startYear = txtStartYear.getText().toString().trim();
 
-        if (day.isEmpty()) errors.add("Day field is empty");
-        if (startYear.isEmpty()) errors.add("Start Year field is empty");
-        if (stopYear.isEmpty()) errors.add("Stop Year field is empty");
-        if (stopYear.length() < 4) {
-            errors.add("Stop Year must be 4 digits");
-        }
-        if (startYear.length() < 4) {
-            errors.add("Start Year must be 4 digits");
-        }
-        if (day.equals("0")) errors.add("Day cannot be 0. Please enter a day");
-        return errors;
 
-    }
 
     public static List<String> getMonths() {
         return Arrays.stream(Month.values())
