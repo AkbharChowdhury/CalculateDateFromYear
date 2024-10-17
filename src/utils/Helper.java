@@ -3,7 +3,10 @@ package utils;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,5 +61,9 @@ public final class Helper {
         if (field.getText().length() > maxLength) e.consume();
 
 
+    }
+
+    public static String formatDate(FormatStyle formatStyle, LocalDate date){
+       return DateTimeFormatter.ofLocalizedDate(formatStyle).format(date);
     }
 }
